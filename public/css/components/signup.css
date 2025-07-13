@@ -1,0 +1,29 @@
+main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 100px;
+    padding-bottom: 100px;
+}
+
+.form-container {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid var(--contrast-two);
+    border-radius: 8px;
+    padding: 48px 32px;
+    align-items: center;
+    gap: 16px;
+    width: 55%;
+}
+
+.form-links {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+form {
+    width: 100%;
+}
