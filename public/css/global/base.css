@@ -52,3 +52,10 @@ ul, ol {
     color: var(--secondary);
     border: 1px solid var(--contrast);
 }
+
+footer {
+    padding-top: 32px;
+    padding-bottom: 32px;
+    text-align: center;
+    color: #666666;
+}

@@ -81,8 +81,6 @@
                 </div>
             </section>
         </main>
-        <footer class="main-wrapper">
-            <p>Copyright &copy; 2025 R+G Clothing. All rights reserved.</p>
-        </footer>
+        <?php include 'views/includes/footer.php'; ?>
     </body>
 </html>
