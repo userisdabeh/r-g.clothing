@@ -4,13 +4,17 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>R+G Clothing</title>
+        <link rel="shortcut icon" href="./public/assets/logo-square.png" type="image/x-icon">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
         <link rel="stylesheet" href="public/css/global/base.css?v=<?php echo time(); ?>">
         <link rel="stylesheet" href="public/css/components/landing.css?v=<?php echo time(); ?>">
+        <link rel="stylesheet" href="public/css/global/accounts.css?v=<?php echo time(); ?>">
     </head>
     <body>
         <header>
-            <h2>R+G Clothing</h2>
+            <a href="index.php">
+                <img src="public/assets/logo-landscape.png" alt="R+G Clothing Logo" class="logo">
+            </a>
             <nav>
                 <button type="button" class="dark-light-toggle">
                     <i class="bi bi-moon-fill"></i>
