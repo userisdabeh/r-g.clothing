@@ -16,7 +16,7 @@
         <main>
             <div class="form-container">
                 <h3>Login to your R+G Account</h3>
-                <form action="" method="post">
+                <form action="./customer/catalog.php" method="post">
                     <div class="mb-3">
                         <label for="email" class="form-label">Email</label>
                         <input type="email" name="email" id="email" class="form-control" placeholder="john@example.com">

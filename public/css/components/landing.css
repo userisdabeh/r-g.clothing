@@ -9,12 +9,6 @@ main {
     height: auto;
 }
 
-.main-wrapper {
-    width: 100%;
-    padding-left: 86px;
-    padding-right: 86px;
-}
-
 .hero {
     display: flex;
     justify-content: space-between;
