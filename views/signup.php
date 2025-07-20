@@ -12,6 +12,7 @@
         <title>R+G Clothing | Signup</title>
     </head>
     <body>
+        <?php include './includes/header.php'; ?>
         <main>
             <div class="form-container">
                 <h3>Create an R+G Account</h3>

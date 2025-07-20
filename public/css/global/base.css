@@ -82,6 +82,14 @@ footer {
     text-decoration: underline;
 }
 
+.link-hover-line {
+    text-decoration: none;
+}
+
+.link-hover-line:hover {
+    text-decoration: underline;
+}
+
 .required {
     color: red;
 }
