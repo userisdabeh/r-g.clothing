@@ -4,8 +4,6 @@
     $product = [
         'name' => 'Black Coat Leather',
         'price' => 2999,
-        'rating' => 4.5,
-        'rating_count' => 179,
         'description' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus sit amet consequat sapien. Maecenas aliquam auctor aliquam. Aliquam commodo eget justo ut sagittis. Donec eros odio, porttitor ut nisi ac, ultricies pretium nibh. Integer vitae nisi nibh. Ut facilisis, libero sed congue ornare, erat diam congue eros, et molestie nibh libero eget sem. Integer rhoncus vestibulum felis. Proin porttitor sem in sem ultricies sollicitudin. Donec vestibulum euismod dui, sed fringilla nibh lobortis vitae. Mauris pellentesque purus ultrices aliquet lacinia. Ut maximus vel est nec efficitur.',
         'stock' => [
             'S' => [
@@ -39,6 +37,25 @@
             '../../public/assets/leather1.webp',
             '../../public/assets/leather2.webp',
             '../../public/assets/leather3.jpg',
+        ],
+        'reviews' => [
+            'review1' => [
+                'user' => 'Lebron James',
+                'rating' => 5,
+                'comment' => 'This is a great product! I love it!',
+                'image' => '../../public/assets/lebron.webp'
+            ],
+            'review2' => [
+                'user' => 'Kobe Bryant',
+                'rating' => 4.5,
+                'comment' => 'This is a good product! I like it!'
+            ],
+            'review3' => [
+                'user' => 'Michael Jordan',
+                'rating' => 1,
+                'comment' => 'This is a bad product! I hate it!',
+                'image' => '../../public/assets/michael.webp'
+            ]
         ]
     ];
 ?>
@@ -89,17 +106,22 @@
                 <h1 class="product-details-name"><?php echo $product['name']; ?></h1>
                 <div class="product-details-rating">
                     <?php
+                        $rating = 0;
+                        foreach ($product['reviews'] as $review) {
+                            $rating += $review['rating'];
+                        }
+                        $rating = $rating / count($product['reviews']);
                         for($i = 0; $i < 5; $i++) {
-                            if ($product['rating'] >= $i + 1) {
+                            if ($rating >= $i + 1) {
                                 echo '<i class="bi bi-star-fill text-warning"></i>';
-                            } else if ($product['rating'] >= $i + 0.5) {
+                            } else if ($rating >= $i + 0.5) {
                                 echo '<i class="bi bi-star-half text-warning"></i>';
                             } else {
                                 echo '<i class="bi bi-star text-warning"></i>';
                             }
                         }
                     ?>
-                    <span class="product-details-rating-value">(<?php echo $product['rating_count']; ?> reviews)</span>
+                    <span class="product-details-rating-value">(<?php echo count($product['reviews']); ?> reviews)</span>
                 </div>
                 <h1 class="product-details-price">₱<span class="product-details-value"><?php echo number_format($product['price'], 2); ?></span></h1>
                 <p class="product-details-description"><?php echo $product['description']; ?></p>
@@ -131,6 +153,33 @@
                         <button type="submit" class="btn btn-secondary" value="Buy">Buy Now</button>
                     </div>
                 </form>
+                <div class="product-details-reviews mt-5">
+                    <h3 class="product-details-reviews-title">Reviews</h3>
+                    <div class="product-details-reviews-list">
+                        <?php foreach ($product['reviews'] as $review) : ?>
+                            <div class="product-details-reviews-item">
+                                <div class="product-details-reviews-item-header">
+                                    <div class="reviews-stars">
+                                        <?php for($i = 0; $i < 5; $i++) {
+                                            if ($review['rating'] >= $i + 1) {
+                                                echo '<i class="bi bi-star-fill text-warning"></i>';
+                                            } else if ($review['rating'] >= $i + 0.5) {
+                                                echo '<i class="bi bi-star-half text-warning"></i>';
+                                            } else {
+                                                echo '<i class="bi bi-star text-warning"></i>';
+                                            }
+                                        } ?>
+                                    </div>
+                                    <p class="product-details-reviews-item-user"><?php echo $review['user']; ?></p>
+                                </div>
+                                <?php if (isset($review['image'])) : ?>
+                                    <img src="<?php echo $review['image']; ?>" alt="Review Image" class="product-details-reviews-item-image" onerror="this.src='../../public/assets/image-placeholder.svg'">
+                                <?php endif; ?>
+                                <p class="review-comment"><?php echo $review['comment']; ?></p>
+                            </div>
+                        <?php endforeach; ?>
+                    </div>
+                </div>
             </div>
         </main>
     </body>

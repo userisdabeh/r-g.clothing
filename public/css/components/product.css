@@ -71,3 +71,38 @@ main.main-wrapper {
     justify-content: flex-start;
     gap: 16px;
 }
+
+.product-details-reviews-item {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: 16px;
+    border-bottom: 1px solid var(--contrast-two);
+    padding: 16px 4px;
+}
+
+.product-details-reviews-item:last-child {
+    border-bottom: none;
+}
+
+.product-details-reviews-item-header {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.product-details-reviews-item-user {
+    margin: 0 !important;
+    font-weight: 600;
+    font-size: 1.2rem;
+}
+
+.product-details-reviews-item-image {
+    width: 100px;
+    aspect-ratio: 1/1;
+    object-fit: cover;
+    object-position: center;
+    border-radius: 8px;
+}
