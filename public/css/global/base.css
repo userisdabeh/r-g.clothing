@@ -51,10 +51,19 @@ ul, ol {
     color: var(--primary);
 }
 
+.btn-primary:hover {
+    background-color: rgb(255, 142, 61);
+}
+
 .btn-secondary {
     background-color: var(--primary);
     color: var(--secondary);
     border: 1px solid var(--contrast);
+}
+
+.btn-secondary:hover {
+    background-color: #eaeaea;
+    color: var(--secondary);
 }
 
 footer {
@@ -100,3 +109,4 @@ main {
     padding-left: 86px;
     padding-right: 86px;
 }
+
