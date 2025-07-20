@@ -35,6 +35,9 @@ CREATE TABLE products (
     product_description TEXT NOT NULL,
     price DECIMAL(10,2) NOT NULL,
     stock INT UNSIGNED NOT NULL,
+    size VARCHAR(255) NOT NULL,
+    color VARCHAR(255) NOT NULL,
+    category ENUM('Streetwear', 'Hypebeast', 'Casual', 'Athletic', 'Workwear') NOT NULL,
     status ENUM('active', 'discontinued') DEFAULT 'active',
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
