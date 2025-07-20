@@ -1,0 +1,52 @@
+.profile-summary {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid var(--contrast-two);
+    align-self: center;
+    width: 70%;
+    padding: 16px;
+    gap: 16px;
+}
+
+.summary-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.summary-header-details {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.summary-header-text {
+    margin: 0;
+}
+
+.summary-header-name {
+    font-size: 1.75rem;
+    font-weight: 600;
+}
+
+.summary-description {
+    margin: 0;
+}
+
+.tabs {
+    width: 70%;
+    display: flex;
+    border: 1px solid var(--contrast-two);
+    background-color: var(--contrast-two);
+    padding: 2px;
+}
+
+.tab {
+    width: 50%;
+    text-align: center;
+    padding: 4px;
+}
+
+.active {
+    background-color: white;
+}
