@@ -55,6 +55,10 @@ ul, ol {
     background-color: rgb(255, 142, 61);
 }
 
+.btn-primary:active {
+    background-color: rgb(255, 142, 61);
+}
+
 .btn-secondary {
     background-color: var(--primary);
     color: var(--secondary);
