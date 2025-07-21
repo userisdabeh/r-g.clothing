@@ -1,0 +1,65 @@
+body {
+    display: flex;
+    height: 100vh;
+}
+
+nav {
+    width: 250px;
+    height: 100%;
+    background-color: black;
+    padding: 12px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: fixed;
+    z-index: 1000;
+    top: 0;
+    left: 0;
+}
+
+.dashboard-links {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin: 0;
+    padding: 0;
+}
+
+.dashboard-link {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    width: 100%;
+    padding: 8px 12px;
+    gap: 8px;
+    border-radius: 4px;
+}
+
+.dashboard-link:hover:not(.active-link) {
+    background-color: #333;
+}
+
+.dashboard-icon {
+    color: white;
+}
+
+.dashboard-text {
+    color: white;
+}
+
+.active-link {
+    background-color: white;
+}
+
+.active-link .dashboard-icon {
+    color: black;
+}
+
+.active-link .dashboard-text {
+    color: black;
+}
+
+main {
+    height: 100%;
+    margin-left: 250px;
+}

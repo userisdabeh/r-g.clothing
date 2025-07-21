@@ -72,29 +72,29 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                         <div class="row mb-3">
                             <div class="col">
                                 <label for="first-name" class="form-label">First Name<span class="required">*</span></label>
-                                <input type="text" name="first-name" id="first-name" class="form-control" placeholder="John">
+                                <input type="text" name="first-name" id="first-name" class="form-control" placeholder="John" required>
                             </div>
                             <div class="col">
                                 <label for="last-name" class="form-label">Last Name<span class="required">*</span></label>
-                                <input type="text" name="last-name" id="last-name" class="form-control" placeholder="Doe">
+                                <input type="text" name="last-name" id="last-name" class="form-control" placeholder="Doe" required>
                             </div>
                         </div>
                         <div class="mb-3">
                             <label for="email" class="form-label">Email<span class="required">*</span></label>
-                            <input type="email" name="email" id="email" class="form-control" placeholder="john@example.com">
+                            <input type="email" name="email" id="email" class="form-control" placeholder="john@example.com" required>
                         </div>
                         <div class="mb-3">
                             <label for="phone" class="form-label">Phone Number<span class="required">*</span></label>
-                            <input type="tel" name="phone" id="phone" class="form-control" placeholder="09123456789">
+                            <input type="tel" name="phone" id="phone" class="form-control" placeholder="09123456789" required>
                         </div>
                         <div class="row mb-3">
                             <div class="col">
                                 <label for="password" class="form-label">Password<span class="required">*</span></label>
-                                <input type="password" name="password" id="password" class="form-control" placeholder="********">
+                                <input type="password" name="password" id="password" class="form-control" placeholder="********" required>
                             </div>
                             <div class="col">
                                 <label for="confirm-password" class="form-label">Confirm Password<span class="required">*</span></label>
-                                <input type="password" name="confirm-password" id="confirm-password" class="form-control" placeholder="********">
+                                <input type="password" name="confirm-password" id="confirm-password" class="form-control" placeholder="********" required>
                             </div>
                         </div>
                     </fieldset>
@@ -103,31 +103,31 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                         <div class="row mb-3">
                             <div class="col">
                                 <label for="province" class="form-label">Province<span class="required">*</span></label>
-                                <input type="text" name="province" id="province" class="form-control" placeholder="Province">
+                                <input type="text" name="province" id="province" class="form-control" placeholder="Province" required>
                             </div>
                             <div class="col">
                                 <label for="city" class="form-label">City<span class="required">*</span></label>
-                                <input type="text" name="city" id="city" class="form-control" placeholder="City">
+                                <input type="text" name="city" id="city" class="form-control" placeholder="City" required>
                             </div>
                         </div>
                         <div class="row mb-3">
                             <div class="col">
                                 <label for="barangay" class="form-label">Barangay<span class="required">*</span></label>
-                                <input type="text" name="barangay" id="barangay" class="form-control" placeholder="Barangay">
+                                <input type="text" name="barangay" id="barangay" class="form-control" placeholder="Barangay" required>
                             </div>
                             <div class="col">
                                 <label for="street" class="form-label">Street<span class="required">*</span></label>
-                                <input type="text" name="street" id="street" class="form-control" placeholder="Street">
+                                <input type="text" name="street" id="street" class="form-control" placeholder="Street" required>
                             </div>
                         </div>
                         <div class="mb-3">
                             <label for="zip-code" class="form-label">Zip Code<span class="required">*</span></label>
-                            <input type="number" name="zip-code" id="zip-code" class="form-control" placeholder="12345" min="0">
+                            <input type="number" name="zip-code" id="zip-code" class="form-control" placeholder="12345" min="0" required>
                         </div>
                     </fieldset>
                     <div class="mb-3">
                         <label for="terms-and-conditions" class="form-check-label">
-                            <input type="checkbox" name="terms-and-conditions" id="terms-and-conditions" class="form-check-input">
+                            <input type="checkbox" name="terms-and-conditions" id="terms-and-conditions" class="form-check-input" required>
                             I agree to the <a href="terms-and-conditions.php" class="link-w-line">Terms and Conditions</a>
                         </label>
                     </div>
