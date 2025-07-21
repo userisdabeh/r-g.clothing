@@ -1,3 +1,7 @@
+<?php
+session_start();
+?>
+
 <header>
     <a href="../customer/catalog.php">
         <img src="../../public/assets/logo-landscape.png" alt="R+G Clothing Logo" class="logo">
@@ -14,7 +18,15 @@
         </a>
         <a href="profile.php">
             <i class="bi bi-person"></i>
-            <span class="username">John Doe</span>
+            <span class="username">
+                <?php
+                    if (isset($_SESSION['user_name'])) {
+                        echo htmlspecialchars($_SESSION['user_name']);
+                    } else {
+                        echo 'Guest';
+                    }
+                ?>
+</span>
         </a>
     </div>
 </header>

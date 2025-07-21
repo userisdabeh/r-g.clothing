@@ -1,3 +1,39 @@
+<?php
+session_start();
+include '../config/dbconn.php';
+
+$error = '';
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $email = trim($_POST['email']);
+    $password = $_POST['password'];
+
+    if (empty($email) || empty($password)) {
+        $error = "Please enter both email and password.";
+    } else {
+        $query = "SELECT * FROM users WHERE email = ?";
+        $stmt = mysqli_prepare($dbconn, $query);
+        mysqli_stmt_bind_param($stmt, "s", $email);
+        mysqli_stmt_execute($stmt);
+        $result = mysqli_stmt_get_result($stmt);
+
+        if ($user = mysqli_fetch_assoc($result)) {
+            if (password_verify($password, $user['password'])) {
+                $_SESSION['user_id'] = $user['user_id'];
+                $_SESSION['user_name'] = $user['first_name'] . ' ' . $user['last_name'];
+
+                header("Location: ./customer/catalog.php");
+                exit;
+            } else {
+                $error = "Incorrect password.";
+            }
+        } else {
+            $error = "No account found with that email.";
+        }
+    }
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -16,7 +52,7 @@
         <main>
             <div class="form-container">
                 <h3>Login to your R+G Account</h3>
-                <form action="./customer/catalog.php" method="post">
+                <form action="login.php" method="post">
                     <div class="mb-3">
                         <label for="email" class="form-label">Email</label>
                         <input type="email" name="email" id="email" class="form-control" placeholder="john@example.com">

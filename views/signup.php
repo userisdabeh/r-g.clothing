@@ -1,3 +1,53 @@
+<?php
+include '../config/dbconn.php';
+
+if ($_SERVER["REQUEST_METHOD"] === "POST") {
+    $first_name = trim($_POST["first-name"] ?? '');
+    $last_name = trim($_POST["last-name"] ?? '');
+    $email = trim($_POST["email"] ?? '');
+    $phone = trim($_POST["phone"] ?? '');
+    $password = $_POST["password"] ?? '';
+    $confirm_password = $_POST["confirm-password"] ?? '';
+    $terms_accepted = isset($_POST["terms-and-conditions"]);
+
+    $errors = [];
+ 
+    if (!$first_name || !$last_name || !$email || !$phone || !$password || !$confirm_password || !$terms_accepted) {
+        $errors[] = "All fields are required and Terms must be accepted.";
+    }
+
+    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        $errors[] = "Invalid email address.";
+    }
+
+    if ($password !== $confirm_password) {
+        $errors[] = "Passwords do not match.";
+    }
+
+    if (empty($errors)) {
+        $hashed_password = password_hash($password, PASSWORD_DEFAULT);
+
+        // Prepare insert statement
+        $stmt = $dbconn->prepare("INSERT INTO users 
+            (first_name, last_name, email, phone, password)
+            VALUES (?, ?, ?, ?, ?)");
+
+        $stmt->bind_param("sssss", $first_name, $last_name, $email, $phone, $hashed_password);
+
+        try {
+            $stmt->execute();
+            $success = true;
+        } catch (mysqli_sql_exception $e) {
+            if (str_contains($e->getMessage(), 'Duplicate entry')) {
+                $errors[] = "An account with this email already exists.";
+            } else {
+                $errors[] = "Database error: " . $e->getMessage();
+            }
+        }
+    }
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
     <head>
