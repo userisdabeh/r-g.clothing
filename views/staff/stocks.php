@@ -17,5 +17,6 @@
     </head>
     <body>
         <?php include 'components/navigation.php'; ?>
+        <main></main>
     </body>
 </html>

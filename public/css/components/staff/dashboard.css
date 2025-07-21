@@ -1,11 +1,7 @@
 main {
-    flex-grow: 1;
-    margin-top: 0;
-    padding: 24px;
     display: flex;
     flex-direction: column;
     gap: 24px;
-    overflow-y: auto;
 }
 
 .summary-cards {
