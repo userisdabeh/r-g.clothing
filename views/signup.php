@@ -10,9 +10,16 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $confirm_password = $_POST["confirm-password"] ?? '';
     $terms_accepted = isset($_POST["terms-and-conditions"]);
 
+    $province = trim($_POST["province"] ?? '');
+    $city = trim($_POST["city"] ?? '');
+    $barangay = trim($_POST["barangay"] ?? '');
+    $street_address = trim($_POST["street"] ?? '');
+    $zip_code = trim($_POST["zip-code"] ?? '');
+
     $errors = [];
+    $success = false;
  
-    if (!$first_name || !$last_name || !$email || !$phone || !$password || !$confirm_password || !$terms_accepted) {
+    if (!$first_name || !$last_name || !$email || !$phone || !$password || !$confirm_password || !$terms_accepted || !$province || !$city || !$barangay || !$street_address || !$zip_code) {
         $errors[] = "All fields are required and Terms must be accepted.";
     }
 
@@ -27,23 +34,33 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     if (empty($errors)) {
         $hashed_password = password_hash($password, PASSWORD_DEFAULT);
 
-        // Prepare insert statement
-        $stmt = $dbconn->prepare("INSERT INTO users 
-            (first_name, last_name, email, phone, password)
-            VALUES (?, ?, ?, ?, ?)");
-
-        $stmt->bind_param("sssss", $first_name, $last_name, $email, $phone, $hashed_password);
+        $dbconn->begin_transaction();
 
         try {
-            $stmt->execute();
+            $stmt_user = $dbconn->prepare("INSERT INTO users (first_name, last_name, email, phone, password) VALUES (?, ?, ?, ?, ?)");
+            $stmt_user->bind_param("sssss", $first_name, $last_name, $email, $phone, $hashed_password);
+            $stmt_user->execute();
+
+            $user_id = $dbconn->insert_id;
+
+            $stmt_address = $dbconn->prepare("INSERT INTO user_address(user_id, province, city, barangay, street_address, zip_code) VALUES (?, ?, ?, ?, ?, ?)");
+            $stmt_address->bind_param("isssss", $user_id, $province, $city, $barangay, $street_address, $zip_code);
+            $stmt_address->execute();
+
+            $dbconn->commit();
             $success = true;
-        } catch (mysqli_sql_exception $e) {
-            if (str_contains($e->getMessage(), 'Duplicate entry')) {
+            header('Location: login.php');
+
+        } catch (mysqli_sql_exception $e) { 
+            $dbconn->rollback();
+
+            if (str_contains($e->getMessage(), 'Duplicate entry') && str_contains($e->getMessage(), 'email')) {
                 $errors[] = "An account with this email already exists.";
             } else {
                 $errors[] = "Database error: " . $e->getMessage();
             }
-        }
+        } 
+
     }
 }
 ?>
