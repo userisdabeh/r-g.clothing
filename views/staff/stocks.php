@@ -49,24 +49,23 @@
                             <th scope="col">Actions</th>
                         </tr>
                     </thead>
+                    <!-- Dynamically added from Database. Each Product Name should be unique and not repeated.
+                        Variables:
+                        1. data-bs-product-name (value should be the product name)
+                        2. data-bs-product-size (value should be the product size)
+                        3. data-bs-product-color (value should be the product color)
+                        4. data-bs-product-stock (value should be the product stock)
+                        5. data-bs-target (important so modal will toggle)
+                        6. data-bs-toggle (important so modal will toggle) -->
                     <tbody>
-                        <!-- Dynamically added from Database
-                             Each Product Name should be unique and not repeated.
-                         Variables:
-                            1. data-bs-product-name (value should be the product name)
-                            2. data-bs-product-size (value should be the product size)
-                            3. data-bs-product-color (value should be the product color)
-                            4. data-bs-product-stock (value should be the product stock)
-                            5. data-bs-target (important so modal will toggle)
-                            6. data-bs-toggle (important so modal will toggle) -->
-                            <tr class="align-middle">
+                        <tr class="align-middle">
                             <td scope="row" class="fw-semibold">1</td>
                             <td>Leather Jacket</td>
                             <td>S</td>
                             <td>White</td>
                             <td>1,000</td>
                             <td>
-                                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#updateStockModal" data-bs-product-name="Leather Jacket" data-bs-product-size="S" data-bs-product-color="White" data-bs-product-stock="1000">
+                                <button class="btn btn-primary button-data" data-bs-toggle="modal" data-bs-target="#updateStockModal" data-bs-product-id="1" data-bs-product-name="Leather Jacket" data-bs-product-size="S" data-bs-product-color="White" data-bs-product-stock="1000">
                                     <i class="bi bi-pencil-square"></i>
                                 </button>
                             </td>
@@ -78,127 +77,7 @@
                             <td>Black</td>
                             <td>1,890</td>
                             <td>
-                                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#updateStockModal" data-bs-product-name="Leather Jacket" data-bs-product-size="M" data-bs-product-color="Black" data-bs-product-stock="1890">
-                                    <i class="bi bi-pencil-square"></i>
-                                </button>
-                            </td>
-                        </tr>
-                        <tr class="align-middle">
-                            <td scope="row" class="fw-semibold">2</td>
-                            <td>Leather Jacket</td>
-                            <td>M</td>
-                            <td>Black</td>
-                            <td>1,890</td>
-                            <td>
-                                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#updateStockModal" data-bs-product-name="Leather Jacket" data-bs-product-size="M" data-bs-product-color="Black" data-bs-product-stock="1890">
-                                    <i class="bi bi-pencil-square"></i>
-                                </button>
-                            </td>
-                        </tr>
-                        <tr class="align-middle">
-                            <td scope="row" class="fw-semibold">2</td>
-                            <td>Leather Jacket</td>
-                            <td>M</td>
-                            <td>Black</td>
-                            <td>1,890</td>
-                            <td>
-                                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#updateStockModal" data-bs-product-name="Leather Jacket" data-bs-product-size="M" data-bs-product-color="Black" data-bs-product-stock="1890">
-                                    <i class="bi bi-pencil-square"></i>
-                                </button>
-                            </td>
-                        </tr>
-                        <tr class="align-middle">
-                            <td scope="row" class="fw-semibold">2</td>
-                            <td>Leather Jacket</td>
-                            <td>M</td>
-                            <td>Black</td>
-                            <td>1,890</td>
-                            <td>
-                                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#updateStockModal" data-bs-product-name="Leather Jacket" data-bs-product-size="M" data-bs-product-color="Black" data-bs-product-stock="1890">
-                                    <i class="bi bi-pencil-square"></i>
-                                </button>
-                            </td>
-                        </tr>
-                        <tr class="align-middle">
-                            <td scope="row" class="fw-semibold">2</td>
-                            <td>Leather Jacket</td>
-                            <td>M</td>
-                            <td>Black</td>
-                            <td>1,890</td>
-                            <td>
-                                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#updateStockModal" data-bs-product-name="Leather Jacket" data-bs-product-size="M" data-bs-product-color="Black" data-bs-product-stock="1890">
-                                    <i class="bi bi-pencil-square"></i>
-                                </button>
-                            </td>
-                        </tr>
-                        <tr class="align-middle">
-                            <td scope="row" class="fw-semibold">2</td>
-                            <td>Leather Jacket</td>
-                            <td>M</td>
-                            <td>Black</td>
-                            <td>1,890</td>
-                            <td>
-                                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#updateStockModal" data-bs-product-name="Leather Jacket" data-bs-product-size="M" data-bs-product-color="Black" data-bs-product-stock="1890">
-                                    <i class="bi bi-pencil-square"></i>
-                                </button>
-                            </td>
-                        </tr>
-                        <tr class="align-middle">
-                            <td scope="row" class="fw-semibold">2</td>
-                            <td>Leather Jacket</td>
-                            <td>M</td>
-                            <td>Black</td>
-                            <td>1,890</td>
-                            <td>
-                                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#updateStockModal" data-bs-product-name="Leather Jacket" data-bs-product-size="M" data-bs-product-color="Black" data-bs-product-stock="1890">
-                                    <i class="bi bi-pencil-square"></i>
-                                </button>
-                            </td>
-                        </tr>
-                        <tr class="align-middle">
-                            <td scope="row" class="fw-semibold">2</td>
-                            <td>Leather Jacket</td>
-                            <td>M</td>
-                            <td>Black</td>
-                            <td>1,890</td>
-                            <td>
-                                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#updateStockModal" data-bs-product-name="Leather Jacket" data-bs-product-size="M" data-bs-product-color="Black" data-bs-product-stock="1890">
-                                    <i class="bi bi-pencil-square"></i>
-                                </button>
-                            </td>
-                        </tr>
-                        <tr class="align-middle">
-                            <td scope="row" class="fw-semibold">2</td>
-                            <td>Leather Jacket</td>
-                            <td>M</td>
-                            <td>Black</td>
-                            <td>1,890</td>
-                            <td>
-                                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#updateStockModal" data-bs-product-name="Leather Jacket" data-bs-product-size="M" data-bs-product-color="Black" data-bs-product-stock="1890">
-                                    <i class="bi bi-pencil-square"></i>
-                                </button>
-                            </td>
-                        </tr>
-                        <tr class="align-middle">
-                            <td scope="row" class="fw-semibold">2</td>
-                            <td>Leather Jacket</td>
-                            <td>M</td>
-                            <td>Black</td>
-                            <td>1,890</td>
-                            <td>
-                                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#updateStockModal" data-bs-product-name="Leather Jacket" data-bs-product-size="M" data-bs-product-color="Black" data-bs-product-stock="1890">
-                                    <i class="bi bi-pencil-square"></i>
-                                </button>
-                            </td>
-                        </tr>
-                        <tr class="align-middle">
-                            <td scope="row" class="fw-semibold">2</td>
-                            <td>Leather Jacket</td>
-                            <td>M</td>
-                            <td>Black</td>
-                            <td>1,890</td>
-                            <td>
-                                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#updateStockModal" data-bs-product-name="Leather Jacket" data-bs-product-size="M" data-bs-product-color="Black" data-bs-product-stock="1890">
+                                <button class="btn btn-primary button-data" data-bs-toggle="modal" data-bs-target="#updateStockModal" data-bs-product-id="2" data-bs-product-name="Leather Jacket" data-bs-product-size="M" data-bs-product-color="Black" data-bs-product-stock="1890">
                                     <i class="bi bi-pencil-square"></i>
                                 </button>
                             </td>
@@ -217,46 +96,14 @@
                     <div class="modal-body">
                         <form action="" method="post" id="updateStockForm">
                             <div class="mb-3">
-                                <label for="productName" class="form-label">Product Name <span class="text-danger">*</span></label>
-                                <select class="form-select" id="productName" name="productName" required>
+                                <label for="productID" class="form-label">Product ID <span class="text-danger">*</span></label>
+                                <select class="form-select" id="productID" name="productID" required>
                                     <option value="" disabled selected>Select Product</option>
-                                    <option value="Leather Jacket">Leather Jacket</option>
-                                    <option value="T-Shirt">T-Shirt</option>
-                                    <option value="Jeans">Jeans</option>
+                                    <!-- Dynamically added from the data in the table -->
                                 </select>
                             </div>
-                            <div class="row mb-3 g-3">
-                                <div class="col">
-                                    <label for="productSize" class="form-label">Size <span class="text-danger">*</span></label>
-                                    <select class="form-select" id="productSize" name="productSize" required>
-                                        <option value="" disabled selected>Select Size</option>
-                                        <option value="S">S</option>
-                                        <option value="M">M</option>
-                                        <option value="L">L</option>
-                                        <option value="XL">XL</option>
-                                        <option value="XXL">XXL</option>
-                                    </select>
-                                </div>
-                                <div class="col">
-                                    <label for="productColor" class="form-label">Color <span class="text-danger">*</span></label>
-                                    <select class="form-select" id="productColor" name="productColor" required>
-                                        <option value="" disabled selected>Select Color</option>
-                                        <option value="Red">Red</option>
-                                        <option value="Blue">Blue</option>
-                                        <option value="Green">Green</option>
-                                        <option value="Black">Black</option>
-                                        <option value="White">White</option>
-                                        <option value="Gray">Gray</option>
-                                        <option value="Brown">Brown</option>
-                                        <option value="Orange">Orange</option>
-                                        <option value="Pink">Pink</option>
-                                        <option value="Purple">Purple</option>
-                                        <option value="Yellow">Yellow</option>
-                                    </select>
-                                </div>
-                            </div>
                             <div class="mb-3">
-                                <label for="productQuantity" class="form-label">Quantity <span class="text-danger">*</span></label>
+                                <label for="productQuantity" class="form-label">Product Quantity <span class="text-danger">*</span></label>
                                 <input type="number" class="form-control" id="productQuantity" name="productQuantity" placeholder="Enter Quantity" required>
                             </div>
                         </form>
