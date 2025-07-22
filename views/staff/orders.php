@@ -52,7 +52,7 @@
                             <td>Leather Jacket (M, White, x1), T-Shirt (S, Black, x1), Jeans (L, Black, x1), T-Shirt (M, Black, x1)</td>
                             <td>Pending</td>
                             <td>
-                                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#updateOrderModal" data-bs-order-id="1" data-bs-order-status="Pending">Update Status</button>
+                                <button class="btn btn-primary button-data" data-bs-toggle="modal" data-bs-target="#updateOrderModal" data-bs-order-id="1" data-bs-order-status="Pending" data-bs-order-items="Leather Jacket (M, White, x1), T-Shirt (S, Black, x1), Jeans (L, Black, x1), T-Shirt (M, Black, x1)">Update Status</button>
                             </td>
                         </tr>
                     </tbody>
@@ -70,7 +70,10 @@
                         <form action="" method="post" id="updateOrderForm">
                             <div class="mb-3">
                                 <label for="orderID" class="form-label">Order ID <span class="text-danger">*</span></label>
-                                <input type="number" name="orderID" id="orderID" class="form-control" placeholder="Enter Order ID" required>
+                                <select class="form-select" id="orderID" name="orderID" required>
+                                    <option value="" disabled selected>Select Order</option>
+                                    <!-- Dynamically added from the data in the table -->
+                                </select>
                             </div>
                             <div class="mb-3">
                                 <label for="orderStatus" class="form-label">Order Status <span class="text-danger">*</span></label>
