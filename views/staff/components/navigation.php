@@ -20,7 +20,7 @@
         </li>
     </ul>
     <div class="logout-container">
-        <a href="<?php echo $_SERVER['PHP_SELF']; ?>" class="dashboard-link">
+        <a href="../logout.php" class="dashboard-link">
             <i class="bi bi-box-arrow-right dashboard-icon"></i>
             <span class="dashboard-text">Logout</span>
         </a>

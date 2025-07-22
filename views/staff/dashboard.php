@@ -195,7 +195,7 @@
                     </div>
                     <ul class="quick-actions-list">
                         <li>
-                            <a href="products.php" class="quick-action">
+                            <a href="stocks.php" class="quick-action">
                                 <i class="bi bi-box-seam"></i>
                                 <p class="quick-action-title">View All Products</p>
                             </a>
