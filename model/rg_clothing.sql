@@ -17,13 +17,11 @@ CREATE TABLE users (
 DROP TABLE IF EXISTS user_address;
 CREATE TABLE user_address (
     address_id INT PRIMARY KEY AUTO_INCREMENT,
-    region VARCHAR(100) NOT NULL,
     province VARCHAR(100) NOT NULL,
     city VARCHAR(200) NOT NULL,
     barangay VARCHAR(200) NOT NULL,
-    postal_code VARCHAR(10) NOT NULL,
     street_address VARCHAR(255) NOT NULL,
-    label VARCHAR(255),
+    postal_code VARCHAR(10) NOT NULL,
     user_id INT NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
