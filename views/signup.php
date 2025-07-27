@@ -43,7 +43,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
             $user_id = $dbconn->insert_id;
 
-            $stmt_address = $dbconn->prepare("INSERT INTO user_address(user_id, province, city, barangay, street_address, zip_code) VALUES (?, ?, ?, ?, ?, ?)");
+            $stmt_address = $dbconn->prepare("INSERT INTO user_address(user_id, province, city, barangay, street_address, postal_code) VALUES (?, ?, ?, ?, ?, ?)");
             $stmt_address->bind_param("isssss", $user_id, $province, $city, $barangay, $street_address, $zip_code);
             $stmt_address->execute();
 
@@ -59,6 +59,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             } else {
                 $errors[] = "Database error: " . $e->getMessage();
             }
+            echo $e->getMessage();
         } 
 
     }

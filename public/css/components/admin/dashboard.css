@@ -1,0 +1,34 @@
+.top-quick {
+    display: flex;
+    align-items: flex-start;
+    gap: 2rem;
+}
+
+.top-products {
+    width: 70%;
+}
+
+.quick-actions {
+    flex-grow: 1;
+}
+
+.top-products-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.top-products-title {
+    margin: 0;
+    font-weight: 600;
+}
+
+.quick-actions-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.quick-actions-title {
+    margin: 0;
+}

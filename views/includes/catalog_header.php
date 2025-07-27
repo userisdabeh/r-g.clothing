@@ -1,7 +1,5 @@
 <?php
-session_start();
-
-include '../../config/dbconn.php';
+include_once '../../config/dbconn.php';
 
 // Function to get the current cart item count
 function get_cart_item_count($dbconn) {
@@ -78,6 +76,7 @@ $cart_item_count = get_cart_item_count($dbconn);
                 ?>
             </span>
         </a>
+        <a href="../customer/orders.php">My Orders</a>
         <?php if (isset($_SESSION['user_name'])): ?>
             <a href="../logout.php" class="btn btn-sm btn-outline-secondary ml-2">
                 <i class="bi bi-box-arrow-right"></i> Logout

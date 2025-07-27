@@ -4,56 +4,6 @@ main {
     gap: 24px;
 }
 
-.summary-cards {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 16px;
-}
-
-.summary-card {
-    flex: 1 1 calc(25% - 16px);
-    border: 1px solid var(--contrast-two);
-    background-color: white;
-    padding: 24px;
-    display: flex;
-    flex-direction: column;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    gap: 12px;
-}
-
-.summary-card-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-}
-
-.summary-card-title {
-    font-size: 0.875rem;
-    margin: 0;
-}
-
-.summary-card-body {
-    display: flex;
-    flex-direction: column;
-}
-
-.summary-card-value {
-    font-size: 1.5rem;
-    font-weight: 600;
-    margin: 0;
-}
-
-.summary-card-description {
-    font-size: 0.8rem;
-    color: rgb(105, 105, 105);
-    margin: 0;
-}
-
-.summary-card-link {
-    color: var(--contrast);
-}
-
 .quick-details-actions {
     width: 100%;
     display: flex;
@@ -114,39 +64,4 @@ table tbody tr td {
 
 table tbody tr:not(:last-child) td {
     border-bottom: 1px solid var(--contrast-two);
-}
-
-.quick-actions {
-    flex-grow: 1;
-    border: 1px solid var(--contrast-two);
-    border-radius: 8px;
-}
-
-.quick-actions-header {
-    border-bottom: 1px solid var(--contrast-two);
-    padding: 16px;
-}
-
-.quick-actions-list {
-    margin: 0;
-    padding: 16px;
-}
-
-.quick-action {
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    gap: 8px;
-    padding: 12px 16px;
-    border-radius: 8px;
-    transition: background-color 0.3s ease;
-}
-
-.quick-action:hover {
-    background-color: var(--contrast-two);
-}
-
-.quick-action-title {
-    margin: 0;
 }

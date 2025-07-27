@@ -1,6 +1,6 @@
 <?php
 session_start();
-include '../../config/dbconn.php';
+include_once '../../config/dbconn.php';
 
 function get_or_create_cart_id($dbconn) {
     $user_id = $_SESSION['user_id'] ?? null;
@@ -340,9 +340,12 @@ $final_total = $total + $shipping;
                         <p class="price-label">Total</p>
                         <p class="price-value">₱<?php echo number_format($final_total, 2); ?></p>
                     </div>
-                    <div class="checkout-button mt-1">
-                        <button class="btn btn-primary w-100" <?php echo empty($cart_items) ? 'disabled' : ''; ?>>Proceed to Checkout</button>
-                    </div>
+                    <form action="checkout.php" method="post">
+                        <div class="checkout-button mt-1">
+                            <button class="btn btn-primary w-100" <?php echo empty($cart_items) ? 'disabled' : ''; ?>>Proceed to Checkout</button>
+                        </div>
+                    </form>
+                    
                 </div>
             </section>
         </main>
