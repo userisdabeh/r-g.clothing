@@ -19,11 +19,24 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         if ($user = mysqli_fetch_assoc($result)) {
             if (password_verify($password, $user['password'])) {
-                $_SESSION['user_id'] = $user['user_id'];
-                $_SESSION['user_name'] = $user['first_name'] . ' ' . $user['last_name'];
+                    if ($user['user_role'] === 'admin') {
+                        $_SESSION['user_id'] = $user['user_id'];
+                        
+                        header("Location: ./admin/dashboard.php");
+                        exit;
+                    } else if ($user['user_role'] === 'staff') {
+                        $_SESSION['user_id'] = $user['user_id'];
 
-                header("Location: ./customer/catalog.php");
-                exit;
+                        header("Location: ./staff/dashboard.php");
+                        exit;
+                    } else {
+                        $_SESSION['user_id'] = $user['user_id'];
+                        $_SESSION['user_name'] = $user['first_name'] . ' ' . $user['last_name'];
+
+                        header("Location: ./customer/catalog.php");
+                        exit;
+                    }
+                
             } else {
                 $error = "Incorrect password.";
             }
