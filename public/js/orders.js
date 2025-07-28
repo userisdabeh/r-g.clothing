@@ -22,6 +22,7 @@ function shortenText(text, maxLength) {
 function getOrderList() {
     const orderButtons = document.querySelectorAll('.button-data');
     const orderIDInput = document.getElementById('orderID');
+    const orderStatusInput = document.getElementById('orderStatus');
 
     orderIDInput.querySelectorAll('option:not([disabled])').forEach(option => option.remove());
 
@@ -35,6 +36,9 @@ function getOrderList() {
         option.title = `${orderID} - ${orderItems} (${orderStatus})`;
         const text = `${orderID} - ${orderItems} (${orderStatus})`;
         option.textContent = shortenText(text, 60);
+
+        orderStatusInput.value = orderStatus;
+
         orderIDInput.appendChild(option);
     });
 }

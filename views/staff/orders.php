@@ -1,5 +1,47 @@
 <?php
+    session_start();
     $activePage = 'orders';
+
+    include_once '../../config/dbconn.php';
+
+    $user_id = $_SESSION['user_id'];
+    $search = isset($_GET['search']) ? mysqli_real_escape_string($dbconn, $_GET['search']) : '';
+
+    if (!isset($_SESSION['user_id'])) {
+        header("Location: ../login.php");
+        exit;
+    }
+
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        $orderID = mysqli_real_escape_string($dbconn, $_POST['orderID']);
+        $orderStatus = mysqli_real_escape_string($dbconn, $_POST['orderStatus']);
+
+        if ($orderID === '' || $orderStatus === '') {
+            $message = "Please fill in all fields";
+        } else {
+            $updateOrder = mysqli_query($dbconn, "CALL update_order_status('$orderID', '$orderStatus')");
+            if ($updateOrder) {
+                $message = "Order status updated successfully";
+            } else {
+                $message = "Failed to update order status";
+            }
+        }
+
+        header("Location: orders.php");
+        exit;
+    }
+
+    if ($search !== '') {
+        $getAllOrders = mysqli_query($dbconn, "CALL get_orders_by_search('$search')");
+    } else {
+        $getAllOrders = mysqli_query($dbconn, "CALL get_orders_list()");
+    }
+    $getAllOrdersResult = [];
+    while ($row = mysqli_fetch_assoc($getAllOrders)) {
+        $getAllOrdersResult[] = $row;
+    }
+    mysqli_free_result($getAllOrders);
+    mysqli_next_result($dbconn);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -22,7 +64,7 @@
             <div class="main-header">
                 <h3 class="main-header-title">Order Management</h3>
                 <div class="main-header-actions">
-                    <form action="" method="get">
+                    <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="get">
                         <div class="input-group">
                             <span class="input-group-text">
                                 <i class="bi bi-search"></i>
@@ -47,14 +89,16 @@
                         </tr>
                     </thead>
                     <tbody>
+                        <?php foreach ($getAllOrdersResult as $order): ?>
                         <tr class="align-middle">
-                            <td scope="row" class="fw-semibold">1</td>
-                            <td>Leather Jacket (M, White, x1), T-Shirt (S, Black, x1), Jeans (L, Black, x1), T-Shirt (M, Black, x1)</td>
-                            <td>Pending</td>
+                            <td scope="row" class="fw-semibold"><?php echo $order['order_id']; ?></td>
+                            <td><?php echo $order['items_summary']; ?></td>
+                            <td><?php echo $order['order_status']; ?></td>
                             <td>
-                                <button class="btn btn-primary button-data" data-bs-toggle="modal" data-bs-target="#updateOrderModal" data-bs-order-id="1" data-bs-order-status="Pending" data-bs-order-items="Leather Jacket (M, White, x1), T-Shirt (S, Black, x1), Jeans (L, Black, x1), T-Shirt (M, Black, x1)">Update Status</button>
+                                <button class="btn btn-primary button-data" data-bs-toggle="modal" data-bs-target="#updateOrderModal" data-bs-order-id="<?php echo $order['order_id']; ?>" data-bs-order-status="<?php echo $order['order_status']; ?>" data-bs-order-items="<?php echo $order['items_summary']; ?>">Update Status</button>
                             </td>
                         </tr>
+                        <?php endforeach; ?>
                     </tbody>
                 </table>
             </div>
@@ -67,7 +111,7 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <form action="" method="post" id="updateOrderForm">
+                        <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post" id="updateOrderForm">
                             <div class="mb-3">
                                 <label for="orderID" class="form-label">Order ID <span class="text-danger">*</span></label>
                                 <select class="form-select" id="orderID" name="orderID" required>
@@ -80,9 +124,11 @@
                                 <select class="form-select" id="orderStatus" name="orderStatus" required>
                                     <option value="" disabled selected>Select Status</option>
                                     <option value="Pending">Pending</option>
-                                    <option value="Processing">Processing</option>
+                                    <option value="Paid">Paid</option>
                                     <option value="Shipped">Shipped</option>
+                                    <option value="Delivery">Delivery</option>
                                     <option value="Delivered">Delivered</option>
+                                    <option value="Cancelled">Cancelled</option>
                                 </select>
                             </div>
                         </form>
