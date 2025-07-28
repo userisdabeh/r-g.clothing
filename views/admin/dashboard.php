@@ -1,5 +1,46 @@
 <?php
+    session_start();
     $activePage = 'dashboard';
+
+    include_once '../../config/dbconn.php';
+
+    $user_id = $_SESSION['user_id'];
+    if (!isset($_SESSION['user_id'])) {
+        header("Location: ../login.php");
+    }
+
+    $getAllProducts = mysqli_query($dbconn, "CALL get_all_products()");
+    $getAllProductsResult = [];
+    $totalProducts = 0;
+    while ($row = mysqli_fetch_assoc($getAllProducts)) {
+        $getAllProductsResult[] = $row;
+        $totalProducts++;
+    }
+    mysqli_free_result($getAllProducts);
+    mysqli_next_result($dbconn);
+
+    $getAllUsers = mysqli_query($dbconn, "CALL get_all_users()");
+    $getAllUsersResult = [];
+    $totalUsers = 0;
+    while ($row = mysqli_fetch_assoc($getAllUsers)) {
+        $getAllUsersResult[] = $row;
+        $totalUsers++;
+    }
+    mysqli_free_result($getAllUsers);
+    mysqli_next_result($dbconn);
+
+    $getTotalRevenue = mysqli_query($dbconn, "CALL get_revenue()");
+    $getTotalRevenueResult = mysqli_fetch_assoc($getTotalRevenue);
+    mysqli_free_result($getTotalRevenue);
+    mysqli_next_result($dbconn);
+
+    $getTopProducts = mysqli_query($dbconn, "CALL get_top_five_product_by_revenue()");
+    $getTopProductsResult = [];
+    while ($row = mysqli_fetch_assoc($getTopProducts)) {
+        $getTopProductsResult[] = $row;
+    }
+    mysqli_free_result($getTopProducts);
+    mysqli_next_result($dbconn);
 ?>
 
 <!DOCTYPE html>
@@ -25,7 +66,7 @@
                         <i class="bi bi-box-seam summary-card-icon"></i>
                     </div>
                     <div class="summary-card-body">
-                        <p class="summary-card-value">100</p>
+                        <p class="summary-card-value"><?php echo $totalProducts; ?></p>
                         <p class="summary-card-description">Total number of products in the inventory</p>
                     </div>
                     <a href="products.php" class="summary-card-link link-hover-line">View Products</a>
@@ -36,7 +77,7 @@
                         <i class="bi bi-people-fill summary-card-icon"></i>
                     </div>
                     <div class="summary-card-body">
-                        <p class="summary-card-value">100</p>
+                        <p class="summary-card-value"><?php echo $totalUsers; ?></p>
                         <p class="summary-card-description">Total number of users</p>
                     </div>
                     <a href="users.php" class="summary-card-link link-hover-line">View Users</a>
@@ -47,7 +88,7 @@
                         <i class="bi bi-cash-coin summary-card-icon"></i>
                     </div>
                     <div class="summary-card-body">
-                        <p class="summary-card-value">100</p>
+                        <p class="summary-card-value"><?php echo $getTotalRevenueResult['revenue']; ?></p>
                         <p class="summary-card-description">Total revenue generated</p>
                     </div>
                 </div>
@@ -68,30 +109,14 @@
                             </tr>
                         </thead>
                         <tbody>
+                            <?php foreach ($getTopProductsResult as $product): ?>
                             <tr>
-                                <td scope="row">1</td>
-                                <td>Product Name</td>
-                                <td>PHP 100</td>
-                                <td>10</td>
+                                <td scope="row"><?php echo $product['product_id']; ?></td>
+                                <td><?php echo $product['product_name']; ?></td>
+                                <td>PHP <?php echo $product['total_revenue']; ?></td>
+                                <td><?php echo $product['total_quantity_sold']; ?></td>
                             </tr>
-                            <tr>
-                                <td scope="row">2</td>
-                                <td>Product Name</td>
-                                <td>PHP 100</td>
-                                <td>10</td>
-                            </tr>
-                            <tr>
-                                <td scope="row">3</td>
-                                <td>Product Name</td>
-                                <td>PHP 100</td>
-                                <td>10</td>
-                            </tr>
-                            <tr>
-                                <td scope="row">4</td>
-                                <td>Product Name</td>
-                                <td>PHP 100</td>
-                                <td>10</td>
-                            </tr>
+                            <?php endforeach; ?>
                         </tbody>
                     </table>
                 </div>
