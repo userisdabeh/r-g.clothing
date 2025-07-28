@@ -39,9 +39,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 
             } else {
                 $error = "Incorrect password.";
+                header("Location: login.php?error=". urlencode($error));
             }
         } else {
             $error = "No account found with that email.";
+            header("Location: login.php?error=". urlencode($error));
         }
     }
 }

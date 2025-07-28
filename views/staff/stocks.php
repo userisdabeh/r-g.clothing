@@ -1,5 +1,50 @@
 <?php
+    session_start();
     $activePage = 'stocks';
+
+    include_once '../../config/dbconn.php';
+
+    $user_id = $_SESSION['user_id'];
+    $search = isset($_GET['search']) ? mysqli_real_escape_string($dbconn, $_GET['search']) : '';
+
+    if (!isset($_SESSION['user_id'])) {
+        header("Location: ../login.php");
+        exit;
+    }
+
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        $productID = mysqli_real_escape_string($dbconn, $_POST['productID']);
+        $productQuantity = mysqli_real_escape_string($dbconn, $_POST['productQuantity']);
+
+        if ($productID === '' || $productQuantity === '') {
+            $message = "Please fill in all fields";
+        } else {
+            $updateStock = mysqli_query($dbconn, "CALL update_stock('$productQuantity', '$productID')");
+            if ($updateStock) {
+                $message = "Stock updated successfully";
+            } else {
+                $message = "Failed to update stock";
+            }
+        }
+
+        header("Location: stocks.php");
+        exit;
+    }
+
+    if ($search !== '') {
+        $getAllProducts = mysqli_query($dbconn, "CALL get_products_by_search('$search')");
+    } else {
+        $getAllProducts = mysqli_query($dbconn, "CALL get_all_products()");
+    }
+
+    $getAllProductsResult = [];
+    while ($row = mysqli_fetch_assoc($getAllProducts)) {
+        $getAllProductsResult[] = $row;
+    }
+    mysqli_free_result($getAllProducts);
+    mysqli_next_result($dbconn);
+
+
 ?>
 
 <!DOCTYPE html>
@@ -23,7 +68,7 @@
             <div class="main-header">
                 <h3 class="main-header-title">Stock Management</h3>
                 <div class="main-header-actions">
-                    <form action="" method="get">
+                    <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="get">
                         <div class="input-group">
                             <span class="input-group-text">
                                 <i class="bi bi-search"></i>
@@ -58,30 +103,20 @@
                         5. data-bs-target (important so modal will toggle)
                         6. data-bs-toggle (important so modal will toggle) -->
                     <tbody>
+                        <?php foreach ($getAllProductsResult as $product): ?>
                         <tr class="align-middle">
-                            <td scope="row" class="fw-semibold">1</td>
-                            <td>Leather Jacket</td>
-                            <td>S</td>
-                            <td>White</td>
-                            <td>1,000</td>
+                            <td scope="row" class="fw-semibold"><?php echo $product['product_id']; ?></td>
+                            <td><?php echo $product['product_name']; ?></td>
+                            <td><?php echo $product['size']; ?></td>
+                            <td><?php echo $product['color']; ?></td>
+                            <td><?php echo $product['stock']; ?></td>
                             <td>
-                                <button class="btn btn-primary button-data" data-bs-toggle="modal" data-bs-target="#updateStockModal" data-bs-product-id="1" data-bs-product-name="Leather Jacket" data-bs-product-size="S" data-bs-product-color="White" data-bs-product-stock="1000">
+                                <button class="btn btn-primary button-data" data-bs-toggle="modal" data-bs-target="#updateStockModal" data-bs-product-id="<?php echo $product['product_id']; ?>" data-bs-product-name="<?php echo $product['product_name']; ?>" data-bs-product-size="<?php echo $product['size']; ?>" data-bs-product-color="<?php echo $product['color']; ?>" data-bs-product-stock="<?php echo $product['stock']; ?>">
                                     <i class="bi bi-pencil-square"></i>
                                 </button>
                             </td>
                         </tr>
-                        <tr class="align-middle">
-                            <td scope="row" class="fw-semibold">2</td>
-                            <td>Leather Jacket</td>
-                            <td>M</td>
-                            <td>Black</td>
-                            <td>1,890</td>
-                            <td>
-                                <button class="btn btn-primary button-data" data-bs-toggle="modal" data-bs-target="#updateStockModal" data-bs-product-id="2" data-bs-product-name="Leather Jacket" data-bs-product-size="M" data-bs-product-color="Black" data-bs-product-stock="1890">
-                                    <i class="bi bi-pencil-square"></i>
-                                </button>
-                            </td>
-                        </tr>
+                        <?php endforeach; ?>
                     </tbody>
                 </table>
             </div>
@@ -94,7 +129,7 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <form action="" method="post" id="updateStockForm">
+                        <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post" id="updateStockForm">
                             <div class="mb-3">
                                 <label for="productID" class="form-label">Product ID <span class="text-danger">*</span></label>
                                 <select class="form-select" id="productID" name="productID" required>

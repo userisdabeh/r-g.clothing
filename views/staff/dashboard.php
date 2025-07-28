@@ -1,6 +1,64 @@
 <?php
+    session_start();
     $activePage = 'dashboard';
+
+    include_once '../../config/dbconn.php';
+
+    if (!isset($_SESSION['user_id'])) {
+        header("Location: ../login.php");
+        exit;
+    }
+
+    $user_id = $_SESSION['user_id'];
+
+    $getAllProducts = mysqli_query($dbconn, "CALL get_all_products()");
+    $getAllProductsResult = [];
+    $totalProducts = 0;
+    while ($row = mysqli_fetch_assoc($getAllProducts)) {
+        $getAllProductsResult[] = $row;
+        $totalProducts++;
+    }
+    mysqli_free_result($getAllProducts);
+    mysqli_next_result($dbconn);
+
+    $getAllOrders = mysqli_query($dbconn, "CALL get_all_orders()");
+    $getAllOrdersResult = [];
+    $totalOrders = 0;
+    $pendingOrders = 0;
+    $paidOrders = 0;
+    $shippedOrders = 0;
+    $deliveredOrders = 0;
+    $deliveryOrders = 0;
+    $cancelledOrders = 0;
+    while ($row = mysqli_fetch_assoc($getAllOrders)) {
+        $getAllOrdersResult[] = $row;
+        $totalOrders++;
+        if ($row['order_status'] === 'Pending') {
+            $pendingOrders++;
+        } else if ($row['order_status'] === 'Paid') {
+            $paidOrders++;
+        } else if ($row['order_status'] === 'Shipped') {
+            $shippedOrders++;
+        } else if ($row['order_status'] === 'Delivery') {
+            $deliveryOrders++;
+        } else if ($row['order_status'] === 'Delivered') {
+            $deliveredOrders++;
+        } else if ($row['order_status'] === 'Cancelled') {
+            $cancelledOrders++;
+        }
+    }
+    mysqli_free_result($getAllOrders);
+    mysqli_next_result($dbconn);
+
+    $getRecentOrders = mysqli_query($dbconn, "CALL get_recent_orders_limit_five()");
+    $getRecentOrdersResult = [];
+    while ($row = mysqli_fetch_assoc($getRecentOrders)) {
+        $getRecentOrdersResult[] = $row;
+    }
+    mysqli_free_result($getRecentOrders);
+    mysqli_next_result($dbconn);
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -25,7 +83,7 @@
                         <i class="bi bi-box-seam summary-card-icon"></i>
                     </div>
                     <div class="summary-card-body">
-                        <p class="summary-card-value">100</p>
+                        <p class="summary-card-value"><?php echo $totalProducts; ?></p>
                         <p class="summary-card-description">Total number of products in the inventory</p>
                     </div>
                     <a href="stocks.php" class="summary-card-link link-hover-line">View Stocks</a>
@@ -36,7 +94,7 @@
                         <i class="bi bi-bag-dash summary-card-icon"></i>
                     </div>
                     <div class="summary-card-body">
-                        <p class="summary-card-value">192</p>
+                        <p class="summary-card-value"><?php echo $pendingOrders; ?></p>
                         <p class="summary-card-description">Pending orders</p>
                     </div>
                     <a href="orders.php" class="summary-card-link link-hover-line">View Orders</a>
@@ -67,42 +125,16 @@
                                 <th class="table-header">COLOR</th>
                                 <th class="table-header">STOCK</th>
                             </thead>
-                            <tbody> <!-- Maximum of 5 products only -->
+                            <tbody>
+                                <?php for ($i = 0; $i < 5; $i++): ?>
                                 <tr>
-                                    <td>Leather Jacket</td>
-                                    <td>Workwear</td>
-                                    <td>S</td>
-                                    <td>White</td>
-                                    <td>100</td>
+                                    <td><?php echo $getAllProductsResult[$i]['product_name']; ?></td>
+                                    <td><?php echo $getAllProductsResult[$i]['category']; ?></td>
+                                    <td><?php echo $getAllProductsResult[$i]['size']; ?></td>
+                                    <td><?php echo $getAllProductsResult[$i]['color']; ?></td>
+                                    <td><?php echo $getAllProductsResult[$i]['stock']; ?></td>
                                 </tr>
-                                <tr>
-                                    <td>Leather Jacket</td>
-                                    <td>Workwear</td>
-                                    <td>M</td>
-                                    <td>White</td>
-                                    <td>100</td>
-                                </tr>
-                                <tr>
-                                    <td>Leather Jacket</td>
-                                    <td>Workwear</td>
-                                    <td>L</td>
-                                    <td>White</td>
-                                    <td>100</td>
-                                </tr>
-                                <tr>
-                                    <td>Leather Jacket</td>
-                                    <td>Workwear</td>
-                                    <td>XL</td>
-                                    <td>White</td>
-                                    <td>100</td>
-                                </tr>
-                                <tr>
-                                    <td>Leather Jacket</td>
-                                    <td>Workwear</td>
-                                    <td>S</td>
-                                    <td>Black</td>
-                                    <td>100</td>
-                                </tr>
+                                <?php endfor; ?>
                             </tbody>
                         </table>
                     </div>
@@ -129,61 +161,18 @@
                                 <th>Quantity</th>
                                 <th>Status</th>
                             </thead>
-                            <tbody> <!-- Maximum of 6 orders only -->
+                            <tbody>
+                                <?php foreach ($getRecentOrdersResult as $order): ?>
                                 <tr>
-                                    <td>Leather Jacket</td>
-                                    <td>S</td>
-                                    <td>White</td>
-                                    <td>100</td>
+                                    <td><?php echo $order['product_name']; ?></td>
+                                    <td><?php echo $order['size']; ?></td>
+                                    <td><?php echo $order['color']; ?></td>
+                                    <td><?php echo $order['quantity']; ?></td>
                                     <td>
-                                        <span class="badge text-bg-danger">Pending</span>
+                                        <span class="badge <?php echo $order['order_status'] === 'Pending' ? 'text-bg-danger' : ($order['order_status'] === 'Paid' ? 'text-bg-success' : ($order['order_status'] === 'Shipped' ? 'text-bg-primary' : ($order['order_status'] === 'Delivery' ? 'text-bg-warning' : ($order['order_status'] === 'Delivered' ? 'text-bg-info' : 'text-bg-secondary')))); ?>"><?php echo $order['order_status']; ?></span>
                                     </td>
                                 </tr>
-                                <tr>
-                                    <td>Leather Jacket</td>
-                                    <td>M</td>
-                                    <td>White</td>
-                                    <td>100</td>
-                                    <td>
-                                        <span class="badge text-bg-success">Paid</span>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Leather Jacket</td>
-                                    <td>L</td>
-                                    <td>White</td>
-                                    <td>100</td>
-                                    <td>
-                                        <span class="badge text-bg-primary">Shipped</span>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Leather Jacket</td>
-                                    <td>XL</td>
-                                    <td>White</td>
-                                    <td>100</td>
-                                    <td>
-                                        <span class="badge text-bg-warning">Delivery</span>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Leather Jacket</td>
-                                    <td>S</td>
-                                    <td>White</td>
-                                    <td>100</td>
-                                    <td>
-                                        <span class="badge text-bg-info">Delivered</span>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Leather Jacket</td>
-                                    <td>M</td>
-                                    <td>White</td>
-                                    <td>100</td>
-                                    <td>
-                                        <span class="badge text-bg-secondary">Cancelled</span>
-                                    </td>
-                                </tr>
+                                <?php endforeach; ?>
                             </tbody>
                         </table>
                     </div>
