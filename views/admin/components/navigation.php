@@ -24,12 +24,6 @@
                 <span class="dashboard-text">Users</span>
             </a>
         </li>
-        <li>
-            <a href="reports.php" class="dashboard-link <?php echo $activePage === 'reports' ? 'active-link' : ''; ?>">
-                <i class="bi bi-file-earmark-bar-graph-fill dashboard-icon"></i>
-                <span class="dashboard-text">Reports</span>
-            </a>
-        </li>
     </ul>
     <div class="logout-container">
         <a href="../logout.php" class="dashboard-link">
