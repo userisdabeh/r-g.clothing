@@ -71,7 +71,7 @@
         }
 
         // Update order total
-        $updateOrderTotal = $dbconn->prepare("UPDATE orders SET total_amount = ? WHERE order_id = ?");
+        $updateOrderTotal = $dbconn->prepare("UPDATE orders SET total_amount = ?, order_status = 'Paid' WHERE order_id = ?");
         $updateOrderTotal->bind_param("di", $orderTotal, $order_id);
         $updateOrderTotal->execute();
         $updateOrderTotal->close();

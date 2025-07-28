@@ -64,6 +64,7 @@ $cart_item_count = get_cart_item_count($dbconn);
             <i class="bi bi-cart"></i>
             <span class="cart-count">(<?php echo $cart_item_count; ?>)</span>
         </a>
+        <a href="../customer/orders.php">My Orders</a>
         <a href="profile.php">
             <i class="bi bi-person"></i>
             <span class="username">
@@ -76,7 +77,6 @@ $cart_item_count = get_cart_item_count($dbconn);
                 ?>
             </span>
         </a>
-        <a href="../customer/orders.php">My Orders</a>
         <?php if (isset($_SESSION['user_name'])): ?>
             <a href="../logout.php" class="btn btn-sm btn-outline-secondary ml-2">
                 <i class="bi bi-box-arrow-right"></i> Logout

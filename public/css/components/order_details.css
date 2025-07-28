@@ -1,0 +1,27 @@
+.main-container {
+    width: 100%;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.product-details,
+.order-details {
+    width: calc(50% - 20px);
+}
+
+.star-rating {
+    display: flex;
+    justify-content: flex-start;
+    gap: 5px;
+    cursor: pointer;
+    font-size: 24px;
+    color: #ccc;
+}
+
+.star-rating .star.hover,
+.star-rating .star.selected {
+    color: gold;
+    transition: color 0.3s ease;
+}
